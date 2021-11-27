@@ -13,7 +13,7 @@
         tools:layout_editor_absoluteY="301dp">
 
         <Button
-            android:id="@+id/register"
+            android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="160dp"
@@ -58,7 +58,7 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:minHeight="48dp"
-            app:layout_constraintBottom_toTopOf="@+id/register"
+            app:layout_constraintBottom_toTopOf="@+id/login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email" />
@@ -73,7 +73,7 @@
             android:layout_marginBottom="15dp"
             android:ems="10"
             android:hint="Name"
-            android:inputType="textPassword"
+            android:inputType="textPersonName|text"
             android:minHeight="48dp"
             app:layout_constraintBottom_toTopOf="@+id/email"
             app:layout_constraintEnd_toEndOf="parent"
