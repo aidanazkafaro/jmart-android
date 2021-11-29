@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -35,17 +34,19 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        EditText textEmail = findViewById(R.id.email);
-        EditText textPassword = findViewById(R.id.password);
-        Button buttonLogin = findViewById(R.id.login);
+        EditText textEmail = findViewById(R.id.loginEmail);
+        EditText textPassword = findViewById(R.id.loginPassword);
+        Button buttonLogin = findViewById(R.id.buttonLogin);
+
         buttonLogin.setOnClickListener(v -> {
+
             Response.Listener<String> listener = new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     try {
                         JSONObject object = new JSONObject(response);
                         if(object != null){
-                            Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT);
+                            Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             loggedAccount = gson.fromJson(object.toString(), Account.class);
                             startActivity(intent);
@@ -53,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     catch (JSONException e){
                         e.printStackTrace();
-                        Toast.makeText(LoginActivity.this, "Login Error!", Toast.LENGTH_SHORT);
+                        Toast.makeText(LoginActivity.this, "Login Error!", Toast.LENGTH_SHORT).show();
                     }
                 }
             };
@@ -64,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
 
         TextView register = findViewById(R.id.registerNow);
         register.setOnClickListener(v -> {
+
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
