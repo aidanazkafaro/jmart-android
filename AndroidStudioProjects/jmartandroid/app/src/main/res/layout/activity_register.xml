@@ -31,7 +31,7 @@
 
         <EditText
             android:id="@+id/registerEmail"
-            android:layout_width="600px"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
             android:layout_marginTop="15dp"
@@ -44,11 +44,11 @@
             app:layout_constraintBottom_toTopOf="@+id/registerPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerName" />
+            app:layout_constraintTop_toBottomOf="@+id/addressRegister" />
 
         <EditText
             android:id="@+id/registerPassword"
-            android:layout_width="600px"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
             android:layout_marginTop="15dp"
@@ -61,11 +61,12 @@
             app:layout_constraintBottom_toTopOf="@+id/buttonRegister"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerEmail" />
+            app:layout_constraintTop_toBottomOf="@+id/registerEmail"
+            tools:ignore="TextContrastCheck" />
 
         <EditText
-            android:id="@+id/registerName"
-            android:layout_width="600px"
+            android:id="@+id/addressRegister"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="93dp"
             android:layout_marginTop="152dp"
@@ -80,5 +81,6 @@
             app:layout_constraintHorizontal_bias="0.565"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

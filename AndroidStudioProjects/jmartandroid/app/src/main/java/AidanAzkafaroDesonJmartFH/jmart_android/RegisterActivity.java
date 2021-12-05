@@ -7,7 +7,6 @@ import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
@@ -15,10 +14,6 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import AidanAzkafaroDesonJmartFH.jmart_android.model.Account;
 import AidanAzkafaroDesonJmartFH.jmart_android.request.RegisterRequest;
@@ -33,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        EditText textName = findViewById(R.id.registerName);
+        EditText textName = findViewById(R.id.addressRegister);
         EditText textEmail = findViewById(R.id.registerEmail);
         EditText textPassword = findViewById(R.id.registerPassword);
         Button buttonRegister = findViewById(R.id.buttonRegister);
@@ -47,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
                         try {
                             JSONObject object = new JSONObject(response);
                             if(object != null){
-                                Toast.makeText(RegisterActivity.this, "Register Success!", Toast.LENGTH_SHORT);
+                                Toast.makeText(RegisterActivity.this, "Register Success!", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                 loggedAccount = gson.fromJson(object.toString(), Account.class);
                                 startActivity(intent);
@@ -55,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                         catch (JSONException e){
                             e.printStackTrace();
-                            Toast.makeText(RegisterActivity.this, "Register Error!", Toast.LENGTH_SHORT);
+                            Toast.makeText(RegisterActivity.this, "Register Error!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 };
