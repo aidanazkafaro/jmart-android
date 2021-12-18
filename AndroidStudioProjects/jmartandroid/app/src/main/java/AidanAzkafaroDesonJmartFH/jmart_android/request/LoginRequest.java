@@ -8,7 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * kelas untuk login request
+ * handle request untuk Login
+ * @author Aidan Azkafaro Deson
+ * @version 1.0
+ * @since 18 Desember 2021
  */
 public class LoginRequest extends StringRequest {
 
@@ -35,6 +38,10 @@ public class LoginRequest extends StringRequest {
         params.put("password", password);
     }
 
+    /**
+     *
+     * @return params
+     */
     public Map<String , String> getParams() {
         return params;
     }

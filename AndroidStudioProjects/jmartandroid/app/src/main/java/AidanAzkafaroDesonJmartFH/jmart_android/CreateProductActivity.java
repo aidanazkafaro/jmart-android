@@ -25,16 +25,28 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+/**
+ * Class untuk membuat produk
+ * @author Aidan Azkafaro Deson
+ * @version 1.0
+ * @since 18 Desember 2021
+ */
 public class CreateProductActivity extends AppCompatActivity {
 
+    //instance variables
     private static final Gson gson = new Gson();
     private static Product product = null;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_product);
 
+        //inisialisasi widgets dari layout xml
         TextInputLayout nameInput = (TextInputLayout) findViewById(R.id.createProductName);
         TextInputLayout weightInput = (TextInputLayout) findViewById(R.id.createProductWeight);
         TextInputLayout priceInput = (TextInputLayout) findViewById(R.id.createProductPrice);
@@ -46,6 +58,7 @@ public class CreateProductActivity extends AppCompatActivity {
         Button create = (Button) findViewById(R.id.btnCreate);
         Button clear = (Button) findViewById(R.id.btnCancel);
 
+        //action saat checkbox new diklik
         newCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -55,6 +68,7 @@ public class CreateProductActivity extends AppCompatActivity {
             }
         });
 
+        //action saat checkbox used diklik
         usedCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -64,6 +78,8 @@ public class CreateProductActivity extends AppCompatActivity {
             }
         });
 
+        //action saat button clear diklik
+        //mengosongkan input yang ada menjadi default
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,6 +92,7 @@ public class CreateProductActivity extends AppCompatActivity {
             }
         });
 
+        //action saat button create diklik
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,6 +114,7 @@ public class CreateProductActivity extends AppCompatActivity {
 
                 };
 
+                //Mengirim request ke API untuk requestProduct
                 CreateProductRequest requestProduct = new CreateProductRequest(nameInput.getEditText().getText().toString(),weightInput.getEditText().getText().toString(),String.valueOf(newCheck.isChecked()),priceInput.getEditText().getText().toString(),discountInput.getEditText().getText().toString(),category.getSelectedItem().toString(),convertShipmentPlans(shipmentPlans.getSelectedItem().toString()),listener,null);
                 RequestQueue requestQueue = Volley.newRequestQueue(CreateProductActivity.this);
                 requestQueue.add(requestProduct);
@@ -104,6 +122,11 @@ public class CreateProductActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Metode untuk konversi shipment plan dari string ke angka (dalam bentuk string juga)
+     * @param shipment
+     * @return
+     */
     protected String convertShipmentPlans(String shipment){
         switch (shipment) {
             case "INSTANT":

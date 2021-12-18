@@ -22,6 +22,12 @@ import org.json.JSONObject;
 import AidanAzkafaroDesonJmartFH.jmart_android.model.Account;
 import AidanAzkafaroDesonJmartFH.jmart_android.request.LoginRequest;
 
+/**
+ * Class untuk Login Session
+ * @author Aidan Azkafaro Deson
+ * @version 1.0
+ * @since 18 Desember 2021
+ */
 public class LoginActivity extends AppCompatActivity {
 
     //inisialisasi instance variable
@@ -40,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
         TextInputLayout textEmail = (TextInputLayout) findViewById(R.id.loginEmail);
         TextInputLayout textPassword = (TextInputLayout) findViewById(R.id.loginPassword);
         Button buttonLogin = findViewById(R.id.buttonLogin);
-
 
         //action saat button login di klik
         buttonLogin.setOnClickListener(v -> {

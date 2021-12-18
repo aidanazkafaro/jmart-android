@@ -8,7 +8,12 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * handle request untuk Create Product
+ * @author Aidan Azkafaro Deson
+ * @version 1.0
+ * @since 18 Desember 2021
+ */
 public class CreateProductRequest extends StringRequest {
 
     /**

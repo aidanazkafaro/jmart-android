@@ -4,6 +4,12 @@ import android.media.Rating;
 
 import java.util.Date;
 
+/**
+ * Class untuk membuat produk
+ * @author Aidan Azkafaro Deson
+ * @version 1.0
+ * @since 18 Desember 2021
+ */
 public class Invoice extends Serializable{
 
     public int buyerId;

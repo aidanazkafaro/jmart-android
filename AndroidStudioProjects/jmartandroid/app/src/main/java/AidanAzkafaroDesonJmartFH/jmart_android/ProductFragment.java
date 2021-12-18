@@ -33,25 +33,35 @@ import java.util.Collection;
 import AidanAzkafaroDesonJmartFH.jmart_android.model.Product;
 import AidanAzkafaroDesonJmartFH.jmart_android.request.RequestFactory;
 
+/**
+ * Class fragment untuk Product
+ * menampilkan list product
+ * @author Aidan Azkafaro Deson
+ * @version 1.0
+ * @since 18 Desember 2021
+ */
 public class ProductFragment extends Fragment {
 
-    ProductFragmentListener fragmentListener;
+    //arraylist untuk menampung list product dari response json
     public static ArrayList<Product> productsList = new ArrayList<>();
+
+    //list adapter untuk product yang belum difilter
     static ArrayAdapter<Product> listViewAdapter;
-    static ArrayAdapter<Product> listViewAdapter2;
+
 
     public static ListView listView;
-
-
     public final int pageSize = 20;
     static int page = 0;
     private static final Gson gson = new Gson();
     public static Product productClicked = null;
 
-    public interface ProductFragmentListener {
-        void getProductList(ArrayAdapter<Product> listViewAdapter);
-    }
-
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return productView
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -62,17 +72,14 @@ public class ProductFragment extends Fragment {
         Button goButton = (Button) productView.findViewById(R.id.btnGo);
         EditText inputPage = (EditText) productView.findViewById(R.id.inputPage);
 
+        //jika Filter sudah diterapkan, tampilkan list yang sudah difilter
         if (FilterFragment.status == 1){
-            listViewAdapter2 = new ArrayAdapter<Product>(
-                    getActivity(),
-                    android.R.layout.simple_list_item_1,
-                    FilterFragment.filteredList
-            );
-            listView.setAdapter(listViewAdapter2);
+
+            //menampilkan listview dari adapternya FragmentFilter
+            listView.setAdapter(FilterFragment.listViewAdapterFilter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    //productClicked = gson.fromJson(lv.getItemAtPosition(i).toString(),Product.class);
                     productClicked = (Product) listView.getItemAtPosition(i);
                     Toast.makeText(getActivity(),"See Product", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ProductFragment.this.getActivity(), ProductDetailActivity.class);
@@ -80,7 +87,9 @@ public class ProductFragment extends Fragment {
                 }
             });
 
-        } else {
+        }
+        //jika Filter belum diterapkan (default)
+        else {
             Response.Listener<String> listener = new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -99,7 +108,6 @@ public class ProductFragment extends Fragment {
                             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                    //productClicked = gson.fromJson(lv.getItemAtPosition(i).toString(),Product.class);
                                     productClicked = (Product) listView.getItemAtPosition(i);
                                     Toast.makeText(getActivity(),"See Product", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(ProductFragment.this.getActivity(), ProductDetailActivity.class);
@@ -139,6 +147,7 @@ public class ProductFragment extends Fragment {
                 }
             });
 
+            //action saat button Go diklik
             goButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -149,25 +158,11 @@ public class ProductFragment extends Fragment {
                 }
             });
 
+            //mengirimkan request ke API untuk getPage
             RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
             requestQueue.add(RequestFactory.getPage("product",page,pageSize,listener,null));
         }
         return productView;
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (context instanceof ProductFragmentListener){
-            fragmentListener = (ProductFragmentListener) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement ProductFragmentListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        fragmentListener = null;
-    }
 }

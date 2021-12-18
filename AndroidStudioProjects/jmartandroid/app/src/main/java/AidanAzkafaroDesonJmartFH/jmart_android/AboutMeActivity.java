@@ -22,17 +22,29 @@ import org.json.JSONObject;
 import AidanAzkafaroDesonJmartFH.jmart_android.model.Store;
 import AidanAzkafaroDesonJmartFH.jmart_android.request.RegisterStoreRequest;
 import AidanAzkafaroDesonJmartFH.jmart_android.request.TopUpRequest;
+/**
+ * Class untuk menampilkan informasi account
+ * @author Aidan Azkafaro Deson
+ * @version 1.0
+ * @since 18 Desember 2021
+ */
 
 public class AboutMeActivity extends AppCompatActivity {
 
+    //instance variables
     private static final Gson gson = new Gson();
     private static Store storeAccount = null;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aboutme);
 
+        //inisialisasi widget dan memberikan nilainya
         TextView name = (TextView) findViewById(R.id.accountName);
         name.setText("" + LoginActivity.getLoggedAccount().name);
 
@@ -52,7 +64,7 @@ public class AboutMeActivity extends AppCompatActivity {
         TextInputLayout addressRegisterStore = (TextInputLayout) findViewById(R.id.nameRegister);
         TextInputLayout phoneNumberRegisterStore = (TextInputLayout) findViewById(R.id.phoneRegister);
 
-//        store details
+        //store details
         TextView dataNameCard = (TextView) findViewById(R.id.dataNameTextAbout);
         TextView dataAddressCard = (TextView) findViewById(R.id.dataAddressTextAbout);
         TextView dataPhoneNumber = (TextView) findViewById(R.id.dataPhoneTextAbout);
@@ -92,7 +104,7 @@ public class AboutMeActivity extends AppCompatActivity {
         }
 
 
-
+        //action saat register button diklik
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,10 +114,7 @@ public class AboutMeActivity extends AppCompatActivity {
                         try{
                             JSONObject object = new JSONObject(response);
                             Toast.makeText(AboutMeActivity.this, "Register Store Successful", Toast.LENGTH_SHORT).show();
-
                             LoginActivity.loggedAccount.store = gson.fromJson(object.toString(),Store.class);
-                            System.out.println("PRINTING STORE: ");
-                            System.out.println(LoginActivity.loggedAccount.store);
                             finish();
                             startActivity(getIntent());
                         }catch (JSONException e){
@@ -115,6 +124,8 @@ public class AboutMeActivity extends AppCompatActivity {
                         }
                     }
                 };
+
+                //Mengirim request API untuk registerStoreRequest
                 RegisterStoreRequest registerStoreRequest = new RegisterStoreRequest(LoginActivity.getLoggedAccount().id,  nameRegisterStore.getEditText().getText().toString(), addressRegisterStore.getEditText().getText().toString(), phoneNumberRegisterStore.getEditText().getText().toString(), listener, null);
                 RequestQueue requestQueue = Volley.newRequestQueue(AboutMeActivity.this);
                 requestQueue.add(registerStoreRequest);
@@ -140,6 +151,8 @@ public class AboutMeActivity extends AppCompatActivity {
                         startActivity(getIntent());
                     }
                 };
+
+                //Mengirimkan request API untuk topUpRequest
                 TopUpRequest topUpRequest = new TopUpRequest(LoginActivity.getLoggedAccount().id, Double.parseDouble(topUpInput.getEditText().getText().toString()), listener, null);
                 RequestQueue requestQueue = Volley.newRequestQueue(AboutMeActivity.this);
                 requestQueue.add(topUpRequest);

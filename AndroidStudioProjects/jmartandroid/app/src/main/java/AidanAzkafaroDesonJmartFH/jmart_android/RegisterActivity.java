@@ -19,21 +19,34 @@ import org.json.JSONObject;
 import AidanAzkafaroDesonJmartFH.jmart_android.model.Account;
 import AidanAzkafaroDesonJmartFH.jmart_android.request.RegisterRequest;
 
+/**
+ * Class untuk melakukan proses register account
+ * @author Aidan Azkafaro Deson
+ * @version 1.0
+ * @since 18 Desember 2021
+ */
 public class RegisterActivity extends AppCompatActivity {
 
+    //inisialisasi instance variabel
     private static final Gson gson = new Gson();
     private static Account loggedAccount = null;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        //inisialisasi widget dari layout xml
         TextInputLayout textName = (TextInputLayout) findViewById(R.id.nameRegister);
         TextInputLayout textEmail = (TextInputLayout) findViewById(R.id.registerEmail);
         TextInputLayout textPassword = (TextInputLayout) findViewById(R.id.registerPassword);
         Button buttonRegister = findViewById(R.id.buttonRegister);
 
+        //action saat button Register diklik
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,11 +68,12 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 };
+
+                //mengirimkan request API registerRequest
                 RegisterRequest registerRequest = new RegisterRequest(textName.getEditText().getText().toString(), textEmail.getEditText().getText().toString(), textPassword.getEditText().getText().toString(), listener, null);
                 RequestQueue requestQueue = Volley.newRequestQueue(RegisterActivity.this);
                 requestQueue.add(registerRequest);
             }
         });
-
     }
 }

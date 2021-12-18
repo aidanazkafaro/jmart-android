@@ -35,8 +35,15 @@ import AidanAzkafaroDesonJmartFH.jmart_android.model.Payment;
 import AidanAzkafaroDesonJmartFH.jmart_android.model.Product;
 import AidanAzkafaroDesonJmartFH.jmart_android.request.PaymentRequest;
 
+/**
+ * Class untuk menampilkan history belanja dari account (unfinished)
+ * @author Aidan Azkafaro Deson
+ * @version 1.0
+ * @since 18 Desember 2021
+ */
 public class InvoiceHistoryActivityAccount extends AppCompatActivity {
 
+    //inisialisasi instance variable
     private static final Gson gson = new Gson();
     private static ArrayList<Payment> paymentList = new ArrayList<>();
     public static Payment paymentClicked = null;
@@ -50,6 +57,10 @@ public class InvoiceHistoryActivityAccount extends AppCompatActivity {
     EditText etId;
 
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -93,6 +104,7 @@ public class InvoiceHistoryActivityAccount extends AppCompatActivity {
             Toast.makeText(InvoiceHistoryActivityAccount.this, "System error.",Toast.LENGTH_SHORT).show();
         };
 
+        //Mengirimkan request API untuk getPaymentByUser
         RequestQueue queue = Volley.newRequestQueue(InvoiceHistoryActivityAccount.this);
         queue.add(PaymentRequest.getPaymentByUser(account.id,listener,errorListener));
 

@@ -22,28 +22,33 @@ import AidanAzkafaroDesonJmartFH.jmart_android.model.Payment;
 
 import AidanAzkafaroDesonJmartFH.jmart_android.request.PaymentRequest;
 
+
+/**
+ * Class untuk melakukan pembayaran
+ * @author Aidan Azkafaro Deson
+ * @version 1.0
+ * @since 18 Desember 2021
+ */
 public class PaymentActivity extends AppCompatActivity {
 
+    //instance variable
     private static final Gson gson = new Gson();
     private static Payment payment = null;
     int count = 0;
 
-    private double totalPrice = (ProductFragment.productClicked.price*(100.0-ProductFragment.productClicked.discount)/100.0); //belum masukin shipment cost
+    //variabel total harga sebuah produk termasuk discount
+    private double totalPrice = (ProductFragment.productClicked.price*(100.0-ProductFragment.productClicked.discount)/100.0);
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-
+        //inisialisasi widget dari layout xml
         TextInputLayout inputAddress = (TextInputLayout) findViewById(R.id.buyerAddress);
-//        Button useAddress = (Button) findViewById(R.id.btnUseAddress);
-//        Button changeAddress = (Button) findViewById(R.id.btnChangeAddress);
-
         TextView dataSummaryName = (TextView) findViewById(R.id.summaryName);
         TextView dataSummaryWeight = (TextView) findViewById(R.id.summaryWeight);
         TextView dataSummaryShipment = (TextView) findViewById(R.id.summaryShipmentPlanCost);
         TextView dataSummaryPrice = (TextView) findViewById(R.id.summaryPrice);
-
         Button submitButton = (Button) findViewById(R.id.btnSubmit);
         Button increase = (Button) findViewById(R.id.btnIncrease);
         Button decrease = (Button) findViewById(R.id.btnDecrease);
@@ -53,6 +58,8 @@ public class PaymentActivity extends AppCompatActivity {
 
 
         fieldCount.setText("1");
+
+        //action saat button increase diklik, increment product count
         increase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -62,6 +69,7 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
 
+        //action saat button decrease diklik, decrement product count (min product count: 1)
         decrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -76,20 +84,10 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
 
-//        String strProductCount = fieldCount.getText().toString();
-//        int intProductCount = Integer.parseInt(strProductCount);
-//        double totalPrice = intProductCount * ProductFragment.productClicked.price;
-
-        //dataSummaryPrice.setText("Rp " + String.valueOf(totalPrice));
-//        double totalPrice = ProductFragment.productClicked.price;
-
-
-//        dataSummaryPrice.setText("Rp " + ProductFragment.productClicked.price * Integer.parseInt(fieldCount.getText().toString()));
+        //menampilkan data summary berdarakan data produk yang diklik
         dataSummaryPrice.setText("Rp " + totalPrice);
-
-
         dataSummaryName.setText(ProductFragment.productClicked.name);
-
+        dataSummaryWeight.setText(String.valueOf(ProductFragment.productClicked.weight));
         int shipmentPlansValue = ProductFragment.productClicked.shipmentPlans;
         if (shipmentPlansValue == 0){
             dataSummaryShipment.setText("INSTANT");
@@ -105,17 +103,8 @@ public class PaymentActivity extends AppCompatActivity {
             dataSummaryShipment.setText("UNKNOWN");
         }
 
-        dataSummaryWeight.setText(String.valueOf(ProductFragment.productClicked.weight));
-
-
-//        returnButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
+        //action saat button submit diklik
+        //melakukan pembayaran
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,12 +127,7 @@ public class PaymentActivity extends AppCompatActivity {
                     }
                 };
 
-                System.out.println("accountId = " + LoginActivity.getLoggedAccount().id);
-                System.out.println("productId = " + ProductFragment.productClicked.id);
-                System.out.println("productCount = " + 1);
-                System.out.println("shipmentAddress = " + inputAddress.getEditText().getText().toString());
-                System.out.println("shipmentPlan = " + ProductFragment.productClicked.shipmentPlans);
-
+                //Mengirimkan request API untuk PaymentRequest
                 PaymentRequest paymentRequest = new PaymentRequest(Integer.valueOf(LoginActivity.getLoggedAccount().id), Integer.valueOf(ProductFragment.productClicked.id), Integer.valueOf(fieldCount.getText().toString()) ,inputAddress.getEditText().getText().toString(), ProductFragment.productClicked.shipmentPlans, listener,null);
                 RequestQueue requestQueue = Volley.newRequestQueue(PaymentActivity.this);
                 requestQueue.add(paymentRequest);

@@ -9,6 +9,12 @@ import java.util.Map;
 
 import AidanAzkafaroDesonJmartFH.jmart_android.LoginActivity;
 
+/**
+ * handle request untuk register store
+ * @author Aidan Azkafaro Deson
+ * @version 1.0
+ * @since 18 Desember 2021
+ */
 public class RegisterStoreRequest extends StringRequest {
     /**
      * URL untuk register store
@@ -35,6 +41,10 @@ public class RegisterStoreRequest extends StringRequest {
         params.put("phoneNumber", phoneNumber);
     }
 
+    /**
+     *
+     * @return params
+     */
     public Map<String , String> getParams() {
         return params;
     }

@@ -9,6 +9,12 @@ import java.util.Map;
 
 import AidanAzkafaroDesonJmartFH.jmart_android.model.ProductCategory;
 
+/**
+ * handle beberapa request ke API
+ * @author Aidan Azkafaro Deson
+ * @version 1.0
+ * @since 18 Desember 2021
+ */
 public class RequestFactory
 {
     /**
@@ -20,6 +26,12 @@ public class RequestFactory
     private static final String URL_PAYMENT_ALL = "http://10.0.2.2:6969/payment/getPaymentTable";
 
 
+    /**
+     * method untuk mendapatkan history payment (unused, so far)
+     * @param listener
+     * @param errorListener
+     * @return
+     */
     public static StringRequest getPaymentTable
             (
                     Response.Listener<String> listener,
@@ -30,6 +42,14 @@ public class RequestFactory
         return new StringRequest(Request.Method.GET, url, listener, errorListener);
     }
 
+    /**
+     * method untuk mendapatkan produk berdasarkan ID nya (unused, so far)
+     * @param parentURI
+     * @param id
+     * @param listener
+     * @param errorListener
+     * @return
+     */
     public static StringRequest getById
             (
                     String parentURI,
@@ -43,6 +63,7 @@ public class RequestFactory
     }
 
     /**
+     * mengembalikan page berdasarkan page dan pagesize
      * @param parentURI
      * @param page
      * @param pageSize
@@ -64,13 +85,14 @@ public class RequestFactory
     }
 
     /**
-     * @param page 
+     * menampikan hasil filter terhadap produk berdasarkan parameter di bawah
+     * @param page
      * @param pageSize
      * @param search
      * @param minPrice
      * @param maxPrice
      * @param category
-     * @param conditioUsed
+     * @param conditionUsed
      * @param listener
      * @param errorListener
      * @return
@@ -83,12 +105,12 @@ public class RequestFactory
                     double minPrice,
                     double maxPrice,
                     ProductCategory category,
-                    boolean conditioUsed,
+                    boolean conditionUsed,
                     Response.Listener<String> listener,
                     Response.ErrorListener errorListener
             )
     {
-        String url = String.format(URL_FORMAT_FILTER,page,pageSize,search,minPrice,maxPrice,category, conditioUsed);
+        String url = String.format(URL_FORMAT_FILTER,page,pageSize,search,minPrice,maxPrice,category,conditionUsed);
         return new StringRequest(Request.Method.GET, url, listener, errorListener);
     }
 }

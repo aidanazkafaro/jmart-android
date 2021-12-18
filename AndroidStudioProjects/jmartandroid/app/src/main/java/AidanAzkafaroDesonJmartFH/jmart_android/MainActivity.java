@@ -21,38 +21,45 @@ import com.google.android.material.tabs.TabLayout;
 import AidanAzkafaroDesonJmartFH.jmart_android.model.Product;
 
 
-public class MainActivity extends AppCompatActivity implements ProductFragment.ProductFragmentListener {
+/**
+ *
+ * @author Aidan Azkafaro Deson
+ * @version 1.0
+ * @since 18 Desember 2021
+ */
+public class MainActivity extends AppCompatActivity{
 
     //widgets
     TabLayout tabLayout;
     ViewPager2 pager2;
     FragmentAdapter adapter;
-
     MenuItem create, search;
     SearchView searchView;
     Menu menu;
 
     private FragmentManager mFragmentManager;
-    private ProductFragment productFragment;
 
-    ArrayAdapter<Product> listViewAdapterMain;
-
+    /**
+     *
+     * @param savedInstanceState
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //inisialisasi widget pada xml
         tabLayout = findViewById(R.id.tab_layout);
         pager2 = findViewById(R.id.view_pager2);
 
+        //set up fragment
         mFragmentManager = getSupportFragmentManager();
-
         adapter = new FragmentAdapter(mFragmentManager, getLifecycle());
         pager2.setAdapter(adapter);
-
         tabLayout.addTab(tabLayout.newTab().setText("Products"));
         tabLayout.addTab(tabLayout.newTab().setText("Filter"));
+
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -80,17 +87,18 @@ public class MainActivity extends AppCompatActivity implements ProductFragment.P
 
     }
 
-    @Override
-    public void getProductList(ArrayAdapter<Product> listViewAdapter) {
-        listViewAdapterMain = listViewAdapter;
-    }
-
-    // Menu icons are inflated just as they were with actionbar
+    /**
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        //insialisasi widget xml
         create = menu.findItem(R.id.create);
         search = menu.findItem(R.id.search);
         searchView = (SearchView) search.getActionView();
@@ -105,18 +113,24 @@ public class MainActivity extends AppCompatActivity implements ProductFragment.P
             @Override
             public boolean onQueryTextChange(String newText) {
 
+                //memfilter dari listViewAdapter pada ProductFragment
                 ProductFragment.listViewAdapter.getFilter().filter(newText);
-
                 return false;
             }
         });
 
-        //only show create button if the account has a store
+        //hanya menunjukkan menu untuk create product
+        //jika account sudah memiliki store
         create.setVisible(LoginActivity.getLoggedAccount().store != null);
 
         return true;
     }
 
+    /**
+     * method untuk menentukan intent pada menu item
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

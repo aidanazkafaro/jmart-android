@@ -9,6 +9,12 @@ import java.util.Map;
 
 import AidanAzkafaroDesonJmartFH.jmart_android.LoginActivity;
 
+/**
+ * handle top up account
+ * @author Aidan Azkafaro Deson
+ * @version 1.0
+ * @since 18 Desember 2021
+ */
 public class TopUpRequest extends StringRequest {
 
     /**
@@ -39,6 +45,10 @@ public class TopUpRequest extends StringRequest {
         params.put("balance", Double.toString(balance));
     }
 
+    /**
+     *
+     * @return params
+     */
     public Map<String , String> getParams() {
         return params;
     }

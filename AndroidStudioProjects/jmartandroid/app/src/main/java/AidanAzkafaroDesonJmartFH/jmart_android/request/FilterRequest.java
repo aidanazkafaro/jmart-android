@@ -10,7 +10,10 @@ import java.util.Map;
 import AidanAzkafaroDesonJmartFH.jmart_android.model.ProductCategory;
 
 /**
- * kelas untuk menerapkan filter product
+ * handle request untuk Filter
+ * @author Aidan Azkafaro Deson
+ * @version 1.0
+ * @since 18 Desember 2021
  */
 public class FilterRequest extends StringRequest {
 

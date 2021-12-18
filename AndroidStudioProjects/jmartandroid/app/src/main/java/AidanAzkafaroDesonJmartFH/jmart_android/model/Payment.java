@@ -5,6 +5,11 @@ import java.util.Date;
 
 import AidanAzkafaroDesonJmartFH.jmart_android.ProductFragment;
 
+/**
+ * @author Aidan Azkafaro Deson
+ * @version 1.0
+ * @since 18 Desember 2021
+ */
 public class Payment extends Invoice{
     /**
      * The Product count.
