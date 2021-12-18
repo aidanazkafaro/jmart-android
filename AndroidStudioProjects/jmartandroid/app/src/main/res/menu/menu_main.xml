@@ -22,6 +22,12 @@
 
 
     <item
+        android:id="@+id/history"
+        android:icon="@drawable/ic_baseline_history_24"
+        android:title="Person"
+        app:showAsAction="collapseActionView|always" />
+
+    <item
         android:id="@+id/person"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="Person"

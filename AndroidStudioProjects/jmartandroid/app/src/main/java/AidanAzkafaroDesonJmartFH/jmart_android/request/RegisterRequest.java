@@ -9,6 +9,14 @@ public class RegisterRequest extends StringRequest {
     private static final String URL =  "http://10.0.2.2:6969/account/register";
     private final Map<String , String> params;
 
+    /**
+     *
+     * @param name
+     * @param email
+     * @param password
+     * @param listener
+     * @param errorListener
+     */
     public RegisterRequest(String name, String email, String password,
                            Response.Listener<String> listener, Response.ErrorListener errorListener)
     {
@@ -18,6 +26,7 @@ public class RegisterRequest extends StringRequest {
         params.put("email", email);
         params.put("password", password);
     }
+
 
     public Map<String , String> getParams() {
         return params;

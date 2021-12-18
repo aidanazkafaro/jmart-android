@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 
 
@@ -22,9 +23,10 @@ import AidanAzkafaroDesonJmartFH.jmart_android.model.Account;
 import AidanAzkafaroDesonJmartFH.jmart_android.request.LoginRequest;
 
 public class LoginActivity extends AppCompatActivity {
-    private static final Gson gson = new Gson();
-    private static Account loggedAccount = null;
 
+    //inisialisasi instance variable
+    private static final Gson gson = new Gson();
+    public static Account loggedAccount = null;
     public static Account getLoggedAccount(){
         return loggedAccount;
     }
@@ -34,12 +36,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        EditText textEmail = findViewById(R.id.loginEmail);
-        EditText textPassword = findViewById(R.id.loginPassword);
+        //inisialisasi field yang ada di xml
+        TextInputLayout textEmail = (TextInputLayout) findViewById(R.id.loginEmail);
+        TextInputLayout textPassword = (TextInputLayout) findViewById(R.id.loginPassword);
         Button buttonLogin = findViewById(R.id.buttonLogin);
 
-        buttonLogin.setOnClickListener(v -> {
 
+        //action saat button login di klik
+        buttonLogin.setOnClickListener(v -> {
             Response.Listener<String> listener = new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -58,14 +62,17 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             };
-            LoginRequest loginRequest = new LoginRequest(textEmail.getText().toString(), textPassword.getText().toString(), listener, null);
+
+            //membuat request dengan isi object dari LoginRequest
+            LoginRequest loginRequest = new LoginRequest(textEmail.getEditText().getText().toString(), textPassword.getEditText().getText().toString(), listener, null);
             RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
             requestQueue.add(loginRequest);
         });
 
         TextView register = findViewById(R.id.registerNow);
-        register.setOnClickListener(v -> {
 
+        //action saat button register diklik
+        register.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });

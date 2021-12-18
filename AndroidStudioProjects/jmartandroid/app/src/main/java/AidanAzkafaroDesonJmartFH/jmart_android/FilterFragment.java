@@ -1,64 +1,120 @@
 package AidanAzkafaroDesonJmartFH.jmart_android;
 
 import android.os.Bundle;
-
+import android.view.View;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.content.Intent;
+import android.widget.*;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FilterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FilterFragment extends Fragment {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.reflect.TypeToken;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+import java.util.ArrayList;
 
-    public FilterFragment() {
-        // Required empty public constructor
-    }
+import AidanAzkafaroDesonJmartFH.jmart_android.model.Product;
+import AidanAzkafaroDesonJmartFH.jmart_android.model.ProductCategory;
+import AidanAzkafaroDesonJmartFH.jmart_android.request.FilterRequest;
+import AidanAzkafaroDesonJmartFH.jmart_android.request.RequestFactory;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SecondFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FilterFragment newInstance(String param1, String param2) {
-        FilterFragment fragment = new FilterFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+public class FilterFragment extends Fragment{
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    ProductFragment.ProductFragmentListener fragmentListener;
 
+
+    private static final Gson gson = new Gson();
+
+    public static ArrayList<Product> filteredList = new ArrayList<>();
+    public static ArrayAdapter<Product> listViewAdapter;
+
+    final int pageSize = 20;
+    static int page = 0;
+    public static int status = 0;
+    boolean productCondition;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_filter, container, false);
+        View view = inflater.inflate(R.layout.fragment_filter, container, false);
+
+        TextInputLayout filterName = (TextInputLayout) view.findViewById(R.id.nameFilter);
+        TextInputLayout filterLowestPrice = (TextInputLayout) view.findViewById(R.id.lowestPriceFilter);
+        TextInputLayout filterHighestPrice = (TextInputLayout) view.findViewById(R.id.highestPriceFilter);
+        CheckBox newProduct = (CheckBox) view.findViewById(R.id.checkBoxNew);
+        CheckBox usedProduct = (CheckBox) view.findViewById(R.id.checkBoxUsed);
+        Spinner productCategory = (Spinner) view.findViewById(R.id.productCategory);
+        Button applyButton = (Button)  view.findViewById(R.id.btnApply);
+        Button clearButton = (Button)  view.findViewById(R.id.btnClear);
+
+        applyButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "apply button clicked", Toast.LENGTH_SHORT).show();
+                Response.Listener<String> listener = new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray object = new JSONArray(response);
+                            if(object != null){
+                                filteredList = gson.fromJson(object.toString(), new TypeToken<ArrayList<Product>>(){}.getType());
+                                listViewAdapter = new ArrayAdapter<Product>(
+                                        getActivity(),
+                                        android.R.layout.simple_list_item_1,
+                                        filteredList
+                                );
+                                ProductFragment.listView.setAdapter(listViewAdapter);
+                                //listView.setAdapter(listViewAdapter);
+                                Toast.makeText(getActivity(),"filtered",Toast.LENGTH_SHORT).show();
+                                status = 1;
+
+                            }else{
+                                Toast.makeText(getActivity(),"tidak ada data",Toast.LENGTH_SHORT).show();
+                            }
+                            getActivity().finish();
+                            getActivity().overridePendingTransition(0,0);
+                            getActivity().startActivity(getActivity().getIntent());
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+                requestQueue.add(RequestFactory.getProductFiltered(ProductFragment.page,pageSize,filterName.getEditText().getText().toString(),Double.parseDouble(filterLowestPrice.getEditText().getText().toString()),Double.parseDouble(filterHighestPrice.getEditText().getText().toString()),ProductCategory.valueOf(productCategory.getSelectedItem().toString()), usedProduct.isChecked(),listener,null));
+
+            }
+        });
+
+
+        //mengosongkan parameter yang digunakan untuk menfilter
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "clear button clicked", Toast.LENGTH_SHORT).show();
+                status = 0;
+                getActivity().finish();
+                getActivity().overridePendingTransition(0,0);
+                getActivity().startActivity(getActivity().getIntent());
+            }
+        });
+
+
+        return view;
     }
 }
+

@@ -24,7 +24,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/prev_button"
+            android:id="@+id/btnPrev"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/next_button"
+            android:id="@+id/btnNext"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             android:layout_weight="1" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/inputPage"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -61,7 +61,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/go_button"
+            android:id="@+id/btnGo"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="GO" />
@@ -81,6 +81,5 @@
         android:layout_below="@id/linearLayout1"
 
         android:layout_marginTop="-2dp"
-        android:visibility="visible"
-        />
+        android:visibility="visible" />
 </RelativeLayout>

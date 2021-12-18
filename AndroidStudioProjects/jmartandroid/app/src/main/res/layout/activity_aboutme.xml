@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
     tools:context=".AboutMeActivity"
     >
 
@@ -13,12 +13,14 @@
         android:id="@+id/accountDetails"
         android:layout_width="358dp"
         android:layout_height="230dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintBottom_toTopOf="@+id/btnRegisterStore"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginHorizontal="20dp"
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -115,12 +117,15 @@
                     android:layout_weight="1"
                     android:hint="Top Up Amount"
 
+
                     >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="#FFFFFF" />
+                        android:backgroundTint="#FFFFFF"
+                        android:inputType="numberDecimal"
+                        />
 
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -136,6 +141,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.6"
+                    style="?attr/materialButtonOutlinedStyle"
                     android:text="TOP UP" />
 
 
@@ -152,15 +158,16 @@
         android:layout_weight="0.6"
         android:text="REGISTER STORE"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayoutRegisterStore"
+        app:layout_constraintBottom_toTopOf="@+id/formRegisterStore"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/accountDetails"
         app:layout_constraintVertical_bias="0.233" />
 
+<!--    form registrasi store-->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayoutRegisterStore"
+        android:id="@+id/formRegisterStore"
         android:layout_width="360dp"
         android:layout_height="365dp"
         android:layout_below="@id/accountDetails"
@@ -213,7 +220,7 @@
                     android:textSize="16sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/nameRegister"
+                    android:id="@+id/storeNameRegister"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:boxBackgroundColor="@color/white">
@@ -227,7 +234,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/addressRegister"
+                    android:id="@+id/nameRegister"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -294,12 +301,14 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+<!--    menampilkan hasil registrasi store-->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayoutAccountStoreDetail"
+        android:id="@+id/accountStoreDetail"
+        android:visibility="invisible"
         android:layout_width="369dp"
         android:layout_height="424dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="55dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -312,7 +321,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="240dp"
-            android:visibility="invisible"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="5dp"
             app:cardElevation="5dp"
@@ -326,6 +334,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -333,7 +343,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
-                    android:layout_marginVertical="5dp"
+                    android:layout_marginVertical="30dp"
                     android:text="Store" />
 
                 <LinearLayout

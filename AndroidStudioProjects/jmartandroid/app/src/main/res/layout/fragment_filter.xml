@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingTop="?attr/actionBarSize"
     tools:context=".FilterFragment">
 
@@ -19,8 +20,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nameFilter"
             android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_height="wrap_content"
-            android:hint="Name">
+            android:hint="Product Name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -40,12 +42,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/lowestPriceFilter"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.2"
                 android:hint="Lowest Price"
-
-                >
+                android:inputType="number"
+           >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -79,10 +82,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/highestPriceFilter"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Highest Price">
+                android:layout_weight="1.2"
+                android:hint="Highest Price"
+                android:inputType="number"
+               >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -109,8 +115,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="Product Condition"
-                android:gravity="center"
+                android:gravity="left|center"
                 android:layout_weight="1.5"
+                android:layout_marginLeft="10dp"
                 />
 
             <CheckBox
@@ -142,7 +149,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="Product Category"
-                android:gravity="center"
+                android:gravity="left|center"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1.5"
                 />
 
@@ -153,7 +161,7 @@
 <!--                android:textSize="20sp" />-->
 
             <Spinner
-                android:id="@+id/spinner2"
+                android:id="@+id/productCategory"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -170,11 +178,13 @@
             >
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btnClear"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="APPLY" />
+                style="?attr/materialButtonOutlinedStyle"
+                android:text="CLEAR" />
+
 
             <TextView
                 android:layout_width="0dp"
@@ -183,11 +193,11 @@
                 android:textSize="20sp" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btnApply"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="CLEAR" />
+                android:text="APPLY" />
 
         </LinearLayout>
 

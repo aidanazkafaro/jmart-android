@@ -7,10 +7,25 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * kelas untuk login request
+ */
 public class LoginRequest extends StringRequest {
+
+    /**
+     * URL untuk membuat login request
+     */
     private static final String URL = "http://10.0.2.2:6969/account/login";
     private final Map<String , String> params;
 
+    /**
+     * Instantiates a new Login request.
+     *
+     * @param email         the email
+     * @param password      the password
+     * @param listener      the listener
+     * @param errorListener the error listener
+     */
     public LoginRequest(String email, String password, Response.Listener<String> listener,
                         Response.ErrorListener errorListener)
     {

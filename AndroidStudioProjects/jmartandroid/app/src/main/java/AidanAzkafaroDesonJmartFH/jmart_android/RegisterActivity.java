@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,9 +29,9 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        EditText textName = findViewById(R.id.addressRegister);
-        EditText textEmail = findViewById(R.id.registerEmail);
-        EditText textPassword = findViewById(R.id.registerPassword);
+        TextInputLayout textName = (TextInputLayout) findViewById(R.id.nameRegister);
+        TextInputLayout textEmail = (TextInputLayout) findViewById(R.id.registerEmail);
+        TextInputLayout textPassword = (TextInputLayout) findViewById(R.id.registerPassword);
         Button buttonRegister = findViewById(R.id.buttonRegister);
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 };
-                RegisterRequest registerRequest = new RegisterRequest(textName.getText().toString(), textEmail.getText().toString(), textPassword.getText().toString(), listener, null);
+                RegisterRequest registerRequest = new RegisterRequest(textName.getEditText().getText().toString(), textEmail.getEditText().getText().toString(), textPassword.getEditText().getText().toString(), listener, null);
                 RequestQueue requestQueue = Volley.newRequestQueue(RegisterActivity.this);
                 requestQueue.add(registerRequest);
             }
